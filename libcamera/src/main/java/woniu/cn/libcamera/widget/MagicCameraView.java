@@ -2,9 +2,13 @@ package woniu.cn.libcamera.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
+import android.hardware.Camera;
 import android.opengl.EGL14;
 import android.opengl.GLES20;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -15,6 +19,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -305,5 +311,20 @@ public class MagicCameraView extends MagicBaseView {
 
     public void onBeautyLevelChanged() {
         cameraInputFilter.onBeautyLevelChanged();
+    }
+
+
+    /////////////////////////////////////////////
+    // ----- 对焦focus
+    /////////////////////////////////////////////
+
+
+    /**
+     * 手动聚焦
+     *
+     * @param point 触屏坐标
+     */
+    protected boolean onFocus(Point point, Camera.AutoFocusCallback callback) {
+        return CameraEngine.onFocus(point, callback);
     }
 }

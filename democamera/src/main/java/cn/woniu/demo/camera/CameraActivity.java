@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.view.ViewGroup;
 
 import woniu.cn.libcamera.MagicEngine;
 import woniu.cn.libcamera.widget.MagicCameraView;
+import woniu.cn.libcamera.widget.SquareCameraContainer;
 
 public class CameraActivity extends Activity {
 
@@ -16,13 +16,12 @@ public class CameraActivity extends Activity {
 
     private MagicCameraView cameraView;
 
+    private SquareCameraContainer mCameraContainer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-
-        MagicEngine.Builder builder = new MagicEngine.Builder();
-        magicEngine = builder.build((MagicCameraView)findViewById(R.id.glsurfaceview_camera));
 
         initView();
 
@@ -30,13 +29,30 @@ public class CameraActivity extends Activity {
 
     private void initView(){
 
+
+//        MagicEngine.Builder builder = new MagicEngine.Builder();
+//        magicEngine = builder.build((MagicCameraView)findViewById(R.id.glsurfaceview_camera));
+//        Point screenSize = new Point();
+//        getWindowManager().getDefaultDisplay().getSize(screenSize);
+//        cameraView = (MagicCameraView)findViewById(R.id.glsurfaceview_camera);
+//        ViewGroup.LayoutParams params = cameraView.getLayoutParams();
+//        params.width = screenSize.x;
+//        params.height = screenSize.x * 4 / 3;
+//        cameraView.setLayoutParams(params);
+
+
+        mCameraContainer = (SquareCameraContainer) findViewById(R.id.cameraContainer);
+
+        MagicEngine.Builder builder = new MagicEngine.Builder();
+        magicEngine = builder.build(mCameraContainer.getCameraView());
+
+
         Point screenSize = new Point();
         getWindowManager().getDefaultDisplay().getSize(screenSize);
-        cameraView = (MagicCameraView)findViewById(R.id.glsurfaceview_camera);
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) cameraView.getLayoutParams();
+        ViewGroup.LayoutParams params = mCameraContainer.getCameraView().getLayoutParams();
         params.width = screenSize.x;
         params.height = screenSize.x * 4 / 3;
-        cameraView.setLayoutParams(params);
+        mCameraContainer.getCameraView().setLayoutParams(params);
 
     }
 

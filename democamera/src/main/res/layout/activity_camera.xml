@@ -5,11 +5,16 @@
     android:orientation="vertical">
 
 
+    <!--<woniu.cn.libcamera.widget.MagicCameraView-->
+        <!--android:id="@+id/glsurfaceview_camera"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
 
-    <woniu.cn.libcamera.widget.MagicCameraView
-        android:id="@+id/glsurfaceview_camera"
+    <woniu.cn.libcamera.widget.SquareCameraContainer
+        android:id="@+id/cameraContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
+
 
     <FrameLayout
         android:layout_width="match_parent"
