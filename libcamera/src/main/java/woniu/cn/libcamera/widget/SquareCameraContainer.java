@@ -16,9 +16,10 @@ import android.widget.SeekBar;
 
 import woniu.cn.libcamera.R;
 import woniu.cn.libcamera.application.BaseCameraApplication;
+import woniu.cn.libcamera.camera.focus.IActivityLifiCycle;
 import woniu.cn.libcamera.camera.focus.SensorControler;
 
-public class SquareCameraContainer extends FrameLayout {
+public class SquareCameraContainer extends FrameLayout implements IActivityLifiCycle {
 
     private Context mContext;
 
@@ -309,5 +310,32 @@ public class SquareCameraContainer extends FrameLayout {
 
     public MagicCameraView getCameraView() {
         return mCameraView;
+    }
+
+
+    ////////////////////////
+    //// Life cycle
+    ///////////////////////
+    @Override
+    public void onStart() {
+        mSensorControler.onStart();
+        mSoundPool = getSoundPool();
+
+        if (mCameraView != null) {
+            mCameraView.onStart();
+        }
+
+    }
+
+    @Override
+    public void onStop() {
+        mSensorControler.onStop();
+
+        mSoundPool.release();
+        mSoundPool = null;
+
+        if (mCameraView != null) {
+            mCameraView.onStop();
+        }
     }
 }

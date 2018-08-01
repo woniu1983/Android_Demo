@@ -35,12 +35,13 @@ import woniu.cn.libcamera.camera.filter.helper.MagicParams;
 import woniu.cn.libcamera.camera.filter.helper.OpenGlUtils;
 import woniu.cn.libcamera.camera.filter.helper.Rotation;
 import woniu.cn.libcamera.camera.filter.helper.TextureRotationUtil;
+import woniu.cn.libcamera.camera.focus.IActivityLifiCycle;
 
 /**
  * Created by why8222 on 2016/2/25.
  * 带实时滤镜(OpenGL ES2.0)的相机视图
  */
-public class MagicCameraView extends MagicBaseView {
+public class MagicCameraView extends MagicBaseView implements IActivityLifiCycle {
 
     private static final String TAG = "MagicCameraView";
 
@@ -326,5 +327,15 @@ public class MagicCameraView extends MagicBaseView {
      */
     protected boolean onFocus(Point point, Camera.AutoFocusCallback callback) {
         return CameraEngine.onFocus(point, callback);
+    }
+
+    @Override
+    public void onStart() {
+        //TODO
+    }
+
+    @Override
+    public void onStop() {
+        //TODO
     }
 }

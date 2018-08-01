@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import woniu.cn.libcamera.MagicEngine;
+import woniu.cn.libcamera.camera.CameraEngine;
 import woniu.cn.libcamera.widget.MagicCameraView;
 import woniu.cn.libcamera.widget.SquareCameraContainer;
 
@@ -61,9 +62,9 @@ public class CameraActivity extends Activity {
         super.onStart();
 
         //TODO
-//        if (mCameraContainer != null) {
-//            mCameraContainer.onStart();
-//        }
+        if (mCameraContainer != null) {
+            mCameraContainer.onStart();
+        }
 
     }
 
@@ -82,9 +83,9 @@ public class CameraActivity extends Activity {
         super.onStop();
 
         //TODO
-//        if (mCameraContainer != null) {
-//            mCameraContainer.onStop();
-//        }
+        if (mCameraContainer != null) {
+            mCameraContainer.onStop();
+        }
     }
 
     @Override
@@ -92,10 +93,10 @@ public class CameraActivity extends Activity {
         super.onDestroy();
 
         //TODO
-//        if (mCameraContainer != null) {
+        if (mCameraContainer != null) {
+            CameraEngine.releaseCamera();
 //            mCameraManager.unbinding();
-//            mCameraManager.releaseActivityCamera();
-//        }
+        }
     }
 
     @Override
