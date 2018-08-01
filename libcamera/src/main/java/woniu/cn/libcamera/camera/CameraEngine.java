@@ -84,10 +84,17 @@ public class CameraEngine {
 
     private static void setDefaultParameters(){
         Parameters parameters = camera.getParameters();
-        if (parameters.getSupportedFocusModes().contains(
-                Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
-            parameters.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+
+        // TODO
+        // 设置对焦模式
+//        if (parameters.getSupportedFocusModes().contains(
+//                Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+//            parameters.setFocusMode(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+//        }
+        if (parameters.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_AUTO)) {
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
         }
+
         Size previewSize = CameraUtils.getLargePreviewSize(camera);
         parameters.setPreviewSize(previewSize.width, previewSize.height);
         Size pictureSize = CameraUtils.getLargePictureSize(camera);
