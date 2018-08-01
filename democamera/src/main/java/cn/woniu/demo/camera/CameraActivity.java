@@ -1,8 +1,13 @@
 package cn.woniu.demo.camera;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.PermissionChecker;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -24,8 +29,27 @@ public class CameraActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        initView();
+        if (PermissionChecker.checkSelfPermission(CameraActivity.this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(CameraActivity.this, new String[] { Manifest.permission.CAMERA },
+                    0);
+        } else {
+            initView();
+        }
 
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        if (grantResults.length != 1 || grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // TODO
+            Log.e("CameraActivity", "==========================onRequestPermissionsResult");
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     private void initView(){
