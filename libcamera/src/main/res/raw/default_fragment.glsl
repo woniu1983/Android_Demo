@@ -96,17 +96,6 @@ void main(){
 
         gl_FragColor = vec4(mix(smoothColor.rgb, max(smoothColor, centralColor), alpha), 1.0);
     }else{
-            //-----TODO
-            vec3 tColor = rgb2hsv(centralColor.rgb);
-            if (tColor.r >= 20.0/180.0 && tColor.r <= 34.0/180.0
-                    && tColor.g >= 33.0/255.0
-                    && tColor.b >= 46.0/255.0) {
-                // 黄色的部分渲染为黑色/红色
-//                centralColor.r = 1.0;
-                centralColor.g = 0.0;
-//                centralColor.b = 0.0;
-            }
-            //-----TODO
         gl_FragColor = vec4(centralColor.rgb,1.0);
     }
 }
