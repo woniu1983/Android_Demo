@@ -113,6 +113,11 @@ public class GPUImageFilter {
     protected void onDestroy() {
     }
 
+    public void onOutputSizeChanged(final int width, final int height) {
+        mOutputWidth = width;
+        mOutputHeight = height;
+    }
+
     public void onInputSizeChanged(final int width, final int height) {
         mIntputWidth = width;
         mIntputHeight = height;
@@ -186,6 +191,14 @@ public class GPUImageFilter {
 
     public boolean isInitialized() {
         return mIsInitialized;
+    }
+
+    public int getOutputWidth() {
+        return mOutputWidth;
+    }
+
+    public int getOutputHeight() {
+        return mOutputHeight;
     }
 
     public int getIntputWidth() {

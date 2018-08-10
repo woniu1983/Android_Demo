@@ -37,7 +37,7 @@ public class CameraActivity extends Activity {
             initView();
         }
 
-
+        Log.e("CameraActivity", "android.os.Build.BRAND=" + android.os.Build.BRAND);
 
     }
 

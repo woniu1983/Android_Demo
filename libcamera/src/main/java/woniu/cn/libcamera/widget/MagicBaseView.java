@@ -113,6 +113,10 @@ public abstract class MagicBaseView extends GLSurfaceView implements GLSurfaceVi
      * 当用户选择其他滤镜时调用
      */
     protected void onFilterChanged(){
+        // TODO
+        if(filter == null) {
+            setFilter(MagicFilterType.IMAGE_ADJUST);
+        }
         if(filter != null) {
             filter.onDisplaySizeChanged(surfaceWidth, surfaceHeight);
             filter.onInputSizeChanged(imageWidth, imageHeight);
@@ -162,6 +166,10 @@ public abstract class MagicBaseView extends GLSurfaceView implements GLSurfaceVi
         float ratioMax = Math.max(ratio1, ratio2);
         int imageWidthNew = Math.round(imageWidth * ratioMax);
         int imageHeightNew = Math.round(imageHeight * ratioMax);
+
+        Log.i("MagicBaseView==", "" + ratio1 + "-" + ratio2
+                    + "-imageWidthNew：" + imageWidthNew + "-imageHeightNew：" + imageHeightNew
+                + "-imageWidth：" + imageWidth+ "-imageHeight：" + imageHeight);
 
         float ratioWidth = imageWidthNew / (float)surfaceWidth;
         float ratioHeight = imageHeightNew / (float)surfaceHeight;

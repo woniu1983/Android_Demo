@@ -82,7 +82,7 @@ void main()
 	} 
 
     textureColor = vec4(ra, ga, ba, 1.0); 
-	base = (textureColor - base) * (grey1Color.r/2.0) + base; 
+	base = (textureColor - base) * (grey1Color.r/2.0) + base;
 
 	gl_FragColor = vec4(base.r, base.g, base.b, 1.0);
 }
