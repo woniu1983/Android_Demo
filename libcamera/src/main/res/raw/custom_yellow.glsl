@@ -41,23 +41,36 @@ void main()
 	vec3 tColor = RGBtoHSL(pColor);
 	tColor = clamp(tColor, 0.0, 1.0);
 
-    if (tColor.r >= 0.111 && tColor.r <= 0.139
-                    && tColor.g >= 0.2) {
-//        c = pColor.b;
-//        c = sqrt(c * c * c);
-//        c = 0.4;
-
+ // No.1
+    if (tColor.r >= 15.0/180.0 && tColor.r <= 34.0/180.0
+            && tColor.g >= 0.11
+            && tColor.b >= 0.50) {
         pColor.r = 1.0;
         pColor.g = 0.0;
         pColor.b = 0.0;
-    } else if (tColor.r >= 69.0/360.0 && tColor.r <= 71.0/360.0
-                    && tColor.g >= 0.196 && tColor.g <= 0.55) {
-        c = 0.7;
-        pColor.b = 1.0;
     } else {
-        c = pColor.r * 0.3 + pColor.g * 0.59 + pColor.b * 0.11;
+        pColor.r = 1.0 - pColor.r;
+        pColor.g = 1.0 - pColor.g;
+        pColor.b = 1.0 - pColor.b;
     }
 
+
+//    if (tColor.r >= 0.111 && tColor.r <= 0.139
+//                    && tColor.g >= 0.2) {
+////        c = pColor.b;
+////        c = sqrt(c * c * c);
+////        c = 0.4;
+//
+//        pColor.r = 1.0;
+//        pColor.g = 0.0;
+//        pColor.b = 0.0;
+//    } else if (tColor.r >= 69.0/360.0 && tColor.r <= 71.0/360.0
+//                    && tColor.g >= 0.196 && tColor.g <= 0.55) {
+//        c = 0.7;
+//        pColor.b = 1.0;
+//    } else {
+//        c = pColor.r * 0.3 + pColor.g * 0.59 + pColor.b * 0.11;
+//    }
 //    gl_FragColor = vec4(c, c, c, 1.0);
     gl_FragColor = vec4(pColor, 1.0);
 

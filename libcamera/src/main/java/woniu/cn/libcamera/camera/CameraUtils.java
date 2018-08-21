@@ -1,6 +1,7 @@
 package woniu.cn.libcamera.camera;
 
 import android.hardware.Camera;
+import android.util.Log;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class CameraUtils {
                 if(temp.width < sizes.get(i).width && scale < 0.6f && scale > 0.5f)
                     temp = sizes.get(i);
             }
+            Log.i("CameraUtils", "Camera Large Picture Size: " + temp.width + " * " + temp.height);
             return temp;
         }
         return null;
@@ -31,6 +33,7 @@ public class CameraUtils {
                 if(temp.width < sizes.get(i).width)
                     temp = sizes.get(i);
             }
+            Log.i("CameraUtils", "Camera Large Preview Size: " + temp.width + " * " + temp.height);
             return temp;
         }
         return null;
