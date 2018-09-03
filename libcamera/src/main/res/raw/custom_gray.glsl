@@ -10,6 +10,13 @@ void main()
     avcolor = textureColor.b;
     avcolor =  sqrt(avcolor * avcolor * avcolor);
 
+//    float x = max(max(textureColor.r, textureColor.g), textureColor.b);
+//        if (x > 0.0) {
+//            avcolor =  sqrt(avcolor * avcolor * avcolor * avcolor / x);
+//        } else {
+//            avcolor =  sqrt(avcolor * avcolor * avcolor);
+//        }
+
     textureColor.r = avcolor;
     textureColor.g = avcolor;
     textureColor.b = avcolor;

@@ -61,15 +61,15 @@ public class CameraEngine {
         }
     }
 
-    public void resumeCamera(){
+    public static void resumeCamera(){
         openCamera();
     }
 
-    public void setParameters(Parameters parameters){
+    public static void setParameters(Parameters parameters){
         camera.setParameters(parameters);
     }
 
-    public Parameters getParameters(){
+    public static Parameters getParameters(){
         if(camera != null)
             camera.getParameters();
         return null;
@@ -95,12 +95,49 @@ public class CameraEngine {
             parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
         }
 
+        printParameters();
+
         Size previewSize = CameraUtils.getLargePreviewSize(camera);
         parameters.setPreviewSize(previewSize.width, previewSize.height);
         Size pictureSize = CameraUtils.getLargePictureSize(camera);
         parameters.setPictureSize(pictureSize.width, pictureSize.height);
         parameters.setRotation(90);
         camera.setParameters(parameters);
+    }
+
+    private static void printParameters() {
+        if (camera == null) {
+            return;
+        }
+        Parameters parameters = camera.getParameters();
+        int minExpo = parameters.getMinExposureCompensation();
+        int maxExpo = parameters.getMaxExposureCompensation();
+        int currExpo = parameters.getExposureCompensation();
+
+//        Log.i("CameraEngine", ">>ExposureCompensation=" + currExpo + "[" + minExpo + "--" + maxExpo + "]");
+////
+////        List<String> scenList = parameters.getSupportedSceneModes();
+////        String currScen = parameters.getSceneMode();
+////        for (String scen : scenList) {
+////            Log.i("CameraEngine", "SupportedSceneMode: " + scen);
+////        }
+////        Log.i("CameraEngine", "Current Scene: " + currScen);
+////
+////        List<String> wbList = parameters.getSupportedWhiteBalance();
+////        String currWb = parameters.getWhiteBalance();
+////        for (String wb : wbList) {
+////            Log.i("CameraEngine", "SupportedWhiteBalance: " + wb);
+////        }
+////        Log.i("CameraEngine", "Current WhiteBalance: " + currWb);
+
+        String flatten = parameters.flatten();
+        String[] attrs = flatten.split(";");
+        for (String attr : attrs) {
+            Log.i("CameraEngine", attr);
+        }
+//        flatten = flatten.replaceAll(";", ";\n");
+
+
     }
 
     private static Size getPreviewSize(){
@@ -189,7 +226,7 @@ public class CameraEngine {
                 return focus(callback);
             }
 
-            Log.i(TAG, "onCameraFocus:" + point.x + "," + point.y);
+            Log.v(TAG, "onCameraFocus:" + point.x + "," + point.y);
 
             List<Camera.Area> areas = new ArrayList<Camera.Area>();
             int left = point.x - 300;

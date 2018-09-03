@@ -181,8 +181,11 @@ public class MagicCameraView extends MagicBaseView implements IActivityLifiCycle
     }
 
     private void openCamera(){
-        if(CameraEngine.getCamera() == null)
+        if(CameraEngine.getCamera() == null) {
             CameraEngine.openCamera();
+        }
+        setCustomCameraParam();
+
         CameraInfo info = CameraEngine.getCameraInfo();
         if(info.orientation == 90 || info.orientation == 270){
             imageWidth = info.previewHeight;
@@ -195,6 +198,31 @@ public class MagicCameraView extends MagicBaseView implements IActivityLifiCycle
         adjustSize(info.orientation, info.isFront, true);
         if(surfaceTexture != null)
             CameraEngine.startPreview(surfaceTexture);
+    }
+
+    private void setCustomCameraParam() {
+        if(CameraEngine.getCamera() == null) {
+            Log.e("MagicCameraView", "setCustomCameraParam: Fail. Camera is null");
+            return;
+        }
+        Camera.Parameters parameters = CameraEngine.getParameters();
+        if (parameters != null) {
+            String manufacturer = android.os.Build.MANUFACTURER;
+            if ("OPPO".equalsIgnoreCase(manufacturer)) {
+                parameters.setWhiteBalance(Camera.Parameters.WHITE_BALANCE_INCANDESCENT);// 白平衡: 白炽灯
+            } else {
+                parameters.setWhiteBalance(Camera.Parameters.WHITE_BALANCE_AUTO);// 自动白平衡
+            }
+            parameters.setExposureCompensation(-3); //曝光
+
+
+            parameters.set("face-detection",    "off");
+            parameters.set("antibanding",       "auto");
+//            parameters.set("preview-frame-rate",  30);
+//            parameters.set("focal-length",      "4.0");
+
+            CameraEngine.setParameters(parameters);
+        }
     }
 
     @Override

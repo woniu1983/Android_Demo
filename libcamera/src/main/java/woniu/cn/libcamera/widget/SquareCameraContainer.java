@@ -73,15 +73,15 @@ public class SquareCameraContainer extends FrameLayout implements IActivityLifiC
 
         mSensorControler = SensorControler.getInstance();
 
-        mSensorControler.setCameraFocusListener(new SensorControler.CameraFocusListener() {
-            @Override
-            public void onFocus() {
-                int screenWidth = BaseCameraApplication.mScreenWidth;
-                Point point = new Point(screenWidth / 2, screenWidth / 2);
-
-                onCameraFocus(point);
-            }
-        });
+//        mSensorControler.setCameraFocusListener(new SensorControler.CameraFocusListener() {
+//            @Override
+//            public void onFocus() {
+//                int screenWidth = BaseCameraApplication.mScreenWidth;
+//                Point point = new Point(screenWidth / 2, screenWidth / 2);
+//
+//                onCameraFocus(point);
+//            }
+//        });//TODO 注释掉
 
         //音效初始化
         mSoundPool = getSoundPool();
@@ -279,7 +279,7 @@ public class SquareCameraContainer extends FrameLayout implements IActivityLifiC
 
                         //播放对焦音效
                         if(mFocusSoundPrepared) {
-                            mSoundPool.play(mFocusSoundId, 1.0f, 0.5f, 1, 0, 1.0f);
+//                            mSoundPool.play(mFocusSoundId, 1.0f, 0.5f, 1, 0, 1.0f);//TODO
                         }
                     }
                 }

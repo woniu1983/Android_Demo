@@ -1,25 +1,23 @@
 package woniu.cn.libcamera.camera.filter.advanced;
 
-import android.os.Build;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import woniu.cn.libcamera.camera.filter.base.MagicBaseGroupFilter;
-import woniu.cn.libcamera.camera.filter.base.gpuimage.GPUImage3x3TextureSamplingFilter;
 import woniu.cn.libcamera.camera.filter.base.gpuimage.GPUImageBrightnessFilter;
 import woniu.cn.libcamera.camera.filter.base.gpuimage.GPUImageContrastFilter;
+import woniu.cn.libcamera.camera.filter.base.gpuimage.GPUImageEmbossFilter;
 import woniu.cn.libcamera.camera.filter.base.gpuimage.GPUImageExposureFilter;
 import woniu.cn.libcamera.camera.filter.base.gpuimage.GPUImageFilter;
 import woniu.cn.libcamera.camera.filter.base.gpuimage.GPUImageGammaFilter;
 import woniu.cn.libcamera.camera.filter.base.gpuimage.GPUImageGrayscaleFilter;
 import woniu.cn.libcamera.camera.filter.base.gpuimage.GPUImageHueFilter;
-import woniu.cn.libcamera.camera.filter.base.gpuimage.GPUImageLevelsFilter;
 import woniu.cn.libcamera.camera.filter.base.gpuimage.GPUImageSaturationFilter;
 import woniu.cn.libcamera.camera.filter.base.gpuimage.GPUImageSharpenFilter;
 import woniu.cn.libcamera.camera.filter.custom.CustomGrayFilter;
-import woniu.cn.libcamera.camera.filter.custom.CustomYellowFilter;
+import woniu.cn.libcamera.camera.filter.custom.CustomHSLFilter;
 
 public class MagicImageAdjustFilter extends MagicBaseGroupFilter {
 
@@ -50,7 +48,9 @@ public class MagicImageAdjustFilter extends MagicBaseGroupFilter {
 		}
 
 		if (manufacturer.contains("OPPO")) {
-			return initFilters_OPPO();
+//			return initFilters_OPPO();
+//			return initFilters_HW();
+			return initFiltersA_OK();
 		} else if (manufacturer.contains("XIAOMI")) {
 			return initFilters_MiOK();
 		} else if (manufacturer.contains("HUAWEI")) {
@@ -63,17 +63,18 @@ public class MagicImageAdjustFilter extends MagicBaseGroupFilter {
 	private static List<GPUImageFilter> initFiltersA_OK(){
 		List<GPUImageFilter> filters = new ArrayList<GPUImageFilter>();
 
+//		filters.add(new GPUImageContrastFilter());
+		filters.add(new CustomHSLFilter());
+//		filters.add(new GPUImageBrightnessFilter(-0.2f));
+////		filters.add(new GPUImageExposureFilter(0.0f));
+////		filters.add(new GPUImageHueFilter(0.0f));
+//		filters.add(new GPUImageSaturationFilter(1.7f));
+//		filters.add(new GPUImageGammaFilter(1.0f));// 0.0-1.0-3.0
+//
+//		filters.add(new CustomGrayFilter()); //TODO //TODO //TODO
+//		filters.add(new MagicBlackCatFilter());//TODO TODO TODO
 		filters.add(new GPUImageContrastFilter(2.0f));
-		filters.add(new GPUImageBrightnessFilter(-0.1f));
-//		filters.add(new GPUImageExposureFilter(0.0f));
-//		filters.add(new GPUImageHueFilter(0.0f));
-		filters.add(new GPUImageSaturationFilter(1.7f));
-		filters.add(new GPUImageGammaFilter(1.0f));// 0.0-1.0-3.0
-
-		filters.add(new CustomGrayFilter()); //TODO //TODO //TODO
-		filters.add(new MagicBlackCatFilter());//TODO TODO TODO
-		filters.add(new GPUImageContrastFilter(2.0f));
-		filters.add(new GPUImageSharpenFilter(1.0f));
+//		filters.add(new GPUImageSharpenFilter(1.0f));
 		filters.add(new GPUImageGrayscaleFilter()); //TODO //TODO //TODO
 
 		return filters;
@@ -85,17 +86,14 @@ public class MagicImageAdjustFilter extends MagicBaseGroupFilter {
 
 		filters.add(new GPUImageGammaFilter(1.0f));// 0.0-1.0-3.0
 		filters.add(new GPUImageHueFilter(3.0f));
-		filters.add(new GPUImageContrastFilter(2.0f));//3.0以上好像会变太亮了
-		filters.add(new GPUImageBrightnessFilter(-0.1f));
-//		filters.add(new GPUImageExposureFilter(0.0f));
-//		filters.add(new GPUImageHueFilter(0.0f));
+//		filters.add(new GPUImageBrightnessFilter(-0.1f));
 		filters.add(new GPUImageSaturationFilter(1.7f));
 
 		filters.add(new CustomGrayFilter()); //TODO //TODO //TODO
 		filters.add(new MagicBlackCatFilter());//TODO TODO TODO
 		filters.add(new GPUImageContrastFilter(2.0f));
-//        filters.add(new GPUImageSharpenFilter(1.0f));
 		filters.add(new GPUImageGrayscaleFilter()); //TODO //TODO //TODO
+
 
 		return filters;
 	}
@@ -104,28 +102,18 @@ public class MagicImageAdjustFilter extends MagicBaseGroupFilter {
 		// OPPO手机
 		List<GPUImageFilter> filters = new ArrayList<GPUImageFilter>();
 
-		GPUImageLevelsFilter lFilter= new GPUImageLevelsFilter();
-		lFilter.setMin(0.0f, 0.6f,1.0f);
-		filters.add(lFilter);//TODO 对比黄色稍微出来一点
-		filters.add(new GPUImageContrastFilter(2.0f));//3.0以上好像会变太亮了
-//		filters.add(new GPUImageSaturationFilter(2.0f));
-		filters.add(new CustomYellowFilter());
-
-//        filters.add(new GPUImageSharpenFilter(2.0f));
-
-
+//		GPUImageLevelsFilter lFilter= new GPUImageLevelsFilter();
+//		lFilter.setMin(0.0f, 0.6f,1.0f);
+//		filters.add(lFilter);//TODO 对比黄色稍微出来一点
 //		filters.add(new GPUImageContrastFilter(2.0f));//3.0以上好像会变太亮了
-////		filters.add(new GPUImageGammaFilter(3.0f));// 0.0-1.0-3.0
-//		filters.add(new GPUImageHueFilter(2.0f));
-////		filters.add(new GPUImageContrastFilter(2.0f));//3.0以上好像会变太亮了
-//		filters.add(new GPUImageBrightnessFilter(0.0f));
 ////		filters.add(new GPUImageSaturationFilter(2.0f));
-//
-////		filters.add(new CustomGrayFilter()); //TODO //TODO //TODO
-////		filters.add(new MagicBlackCatFilter());//TODO TODO TODO
-////		filters.add(new GPUImageContrastFilter(2.0f));
-////		filters.add(new GPUImageGrayscaleFilter()); //TODO //TODO //TODO
-////		filters.add(new MagicSketchFilter());
+//		filters.add(new CustomYellowFilter());
+
+
+		// New TODO
+		filters.add(new CustomGrayFilter()); //TODO //TODO //TODO
+//		filters.add(new MagicBlackCatFilter());//TODO TODO TODO
+		filters.add(new GPUImageGrayscaleFilter()); //TODO //TODO //TODO
 
 		return filters;
 	}
@@ -133,15 +121,6 @@ public class MagicImageAdjustFilter extends MagicBaseGroupFilter {
 	private static List<GPUImageFilter> initFilters_HW(){
 		// HONOR荣耀手机
 		List<GPUImageFilter> filters = new ArrayList<GPUImageFilter>();
-
-//		filters.add(new GPUImageContrastFilter(2.0f));//3.0以上好像会变太亮了
-//		filters.add(new GPUImageBrightnessFilter(-0.1f));
-//		filters.add(new GPUImageSaturationFilter(1.3f));
-//
-//		filters.add(new CustomGrayFilter()); //TODO //TODO //TODO
-//		filters.add(new MagicBlackCatFilter());//TODO TODO TODO
-//		filters.add(new GPUImageGrayscaleFilter()); //TODO //TODO //TODO
-
 
 		// 新调试
 		filters.add(new GPUImageGammaFilter(1.0f));// 0.0-1.0-3.0
@@ -153,10 +132,10 @@ public class MagicImageAdjustFilter extends MagicBaseGroupFilter {
 		filters.add(new GPUImageSaturationFilter(1.7f));
 
 		filters.add(new CustomGrayFilter()); //TODO //TODO //TODO
-//		filters.add(new MagicBlackCatFilter());//TODO TODO TODO
+//        filters.add(new GPUImageEmbossFilter(4.0f)); //TODO //TODO //TODO
 //		filters.add(new GPUImageContrastFilter(2.0f));
-		filters.add(new GPUImageSharpenFilter(2.0f));
-		filters.add(new GPUImageGrayscaleFilter()); //TODO //TODO //TODO
+//		filters.add(new GPUImageSharpenFilter(2.0f));
+//		filters.add(new GPUImageGrayscaleFilter()); //TODO //TODO //TODO
 
 		return filters;
 	}
