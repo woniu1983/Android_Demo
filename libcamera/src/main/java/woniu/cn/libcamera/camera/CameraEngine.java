@@ -21,6 +21,9 @@ public class CameraEngine {
     private static SurfaceTexture surfaceTexture;
     private static SurfaceView surfaceView;
 
+    private static int maxContrast;
+    private static int maxSaturation;
+
     public static Camera getCamera(){
         return camera;
     }
@@ -102,6 +105,15 @@ public class CameraEngine {
         Size pictureSize = CameraUtils.getLargePictureSize(camera);
         parameters.setPictureSize(pictureSize.width, pictureSize.height);
         parameters.setRotation(90);
+
+        if(maxContrast > 0) {
+            parameters.set("max-contrast", maxContrast);
+        }
+
+        if(maxSaturation > 0) {
+            parameters.set("max-saturation", maxSaturation);
+        }
+
         camera.setParameters(parameters);
     }
 
@@ -113,6 +125,9 @@ public class CameraEngine {
         int minExpo = parameters.getMinExposureCompensation();
         int maxExpo = parameters.getMaxExposureCompensation();
         int currExpo = parameters.getExposureCompensation();
+
+        maxContrast = Integer.valueOf(parameters.get("max-contrast"));
+        maxSaturation = Integer.valueOf(parameters.get("max-saturation"));
 
 //        Log.i("CameraEngine", ">>ExposureCompensation=" + currExpo + "[" + minExpo + "--" + maxExpo + "]");
 ////
